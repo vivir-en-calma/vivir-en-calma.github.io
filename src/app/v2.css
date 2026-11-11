@@ -1,0 +1,750 @@
+/* ===================== Vivir en calma v2: portada con recorrido animado ===================== */
+/* Sin JavaScript o con «reducir movimiento» todo se ve en orden y quieto; las escenas
+   fijas y los efectos se activan solo con la clase .v2-anim en <html> (la pone MotionV2). */
+
+.cartilla {
+  overflow-x: clip;
+}
+
+.v2 {
+  margin-top: -32px;
+}
+
+.v2-full {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.v2-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.v2 section h2 {
+  margin: 0 0 18px;
+}
+
+.v2-grande {
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.v2-dos {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.v2-col {
+  max-width: 62ch;
+}
+
+.v2 .rich p {
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+/* ---------- 1. Inicio ---------- */
+.v2-stage {
+  position: relative;
+  background: var(--c-bg);
+}
+
+.v2-lema {
+  margin: 0;
+  padding: 56px 24px 24px;
+  max-width: 1120px;
+  margin-inline: auto;
+  font-size: clamp(2.5rem, 7.4vw, 6.2rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: #197885;
+}
+
+.v2-lema .line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.v2-lema .line > span {
+  display: inline-block;
+}
+
+.v2-lema em {
+  font-style: normal;
+  color: #8a6fb0;
+}
+
+.v2-baja {
+  display: none;
+}
+
+.v2-collage {
+  display: none;
+}
+
+.v2-portada {
+  display: flex;
+  align-items: center;
+  min-height: 70vh;
+  margin: 0 16px;
+  border-radius: 28px;
+  background: #cfe3e8 var(--fondo, none) center / cover no-repeat;
+}
+
+.v2-portada-txt {
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.v2-portada .eyebrow {
+  color: #1f5f69;
+}
+
+.v2-titulo {
+  margin: 4px 0 10px;
+  font-size: clamp(3.4rem, 12vw, 8.5rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: #197885;
+}
+
+.v2-portada .c-sub {
+  max-width: 26ch;
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+  color: #1f3a42;
+}
+
+.v2-anim .v2-hero {
+  height: 340vh;
+}
+
+.v2-anim .v2-stage {
+  position: sticky;
+  top: 64px;
+  height: calc(100svh - 64px);
+  overflow: hidden;
+}
+
+.v2-anim .v2-lema {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 0;
+  text-align: center;
+}
+
+.v2-anim .v2-baja {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  margin: 0;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.v2-anim .v2-baja::after {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 34px;
+  margin: 10px auto 0;
+  background: linear-gradient(#197885, transparent);
+  animation: v2-gota 1.8s ease-in-out infinite;
+}
+
+@keyframes v2-gota {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.v2-anim .v2-collage {
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+
+.v2-tesela {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-width: 64px;
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--m) 16%, #fff);
+  box-shadow: 0 18px 40px -18px rgba(23, 63, 74, 0.45);
+}
+
+.v2-tesela img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.v2-anim .v2-portada {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  min-height: 0;
+  border-radius: 0;
+  clip-path: inset(50% 50% 50% 50% round 28px);
+}
+
+/* ---------- vuelo de la libélula ---------- */
+.v2-vuelo,
+.v2-libelula {
+  display: none;
+}
+
+.v2-anim .v2-vuelo {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.v2-vuelo path {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.v2-vuelo .guia-trazo {
+  stroke: rgba(25, 120, 133, 0.16);
+  stroke-width: 2;
+  stroke-dasharray: 2 10;
+}
+
+.v2-vuelo .estela {
+  stroke: url(#estela);
+  stroke-width: 3;
+  opacity: 0.55;
+}
+
+.v2-anim .v2-libelula {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  width: 84px;
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+  will-change: transform;
+  filter: drop-shadow(0 8px 10px rgba(64, 50, 110, 0.25));
+}
+
+/* ---------- 2. Frase ---------- */
+.v2-cita {
+  padding: 18vh 0;
+  background: #124c56;
+  color: #fff;
+}
+
+.v2-cita blockquote {
+  margin: 0 auto;
+}
+
+.v2-cita p {
+  margin: 0;
+  max-width: 20ch;
+  font-size: clamp(2rem, 5.4vw, 4.2rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.v2-cita cite {
+  display: block;
+  margin-top: 24px;
+  font-style: normal;
+  font-weight: 700;
+  color: #9fd4dc;
+}
+
+.v2-anim .v2-ilumina .w {
+  opacity: 0.18;
+}
+
+/* ---------- 3. Un espacio para ti ---------- */
+.v2-espacio {
+  padding: 16vh 0 12vh;
+}
+
+.v2-espacio h2,
+.v2-como h2,
+.v2-recorrido h2 {
+  color: #197885;
+}
+
+.v2-frase-llena {
+  margin-top: 12vh;
+  margin-bottom: 0;
+  font-size: clamp(1.9rem, 4.6vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #197885;
+}
+
+/* ---------- 4. Símbolo ---------- */
+.v2-simbolo {
+  padding: 14vh 0;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.v2-simbolo .v2-dos {
+  align-items: center;
+}
+
+.v2-logo img {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.v2-simbolo h2 {
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  color: #7d55a0;
+}
+
+/* ---------- 5. Herramienta ---------- */
+.v2-herramienta {
+  padding: 16vh 0;
+  background: #efe9f6;
+}
+
+.v2-herramienta h2 {
+  max-width: 16ch;
+  color: #5c3f86;
+}
+
+.v2-empezar {
+  margin: 22px 0 0;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: #7d55a0;
+}
+
+/* ---------- 6. ¿Cómo usarla? ---------- */
+.v2-como {
+  padding-top: 16vh;
+  background: #e3f0f2;
+}
+
+.v2-como-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 48px;
+}
+
+.v2-momentos {
+  padding: 8vh 0 14vh;
+}
+
+.v2-momentos-stage {
+  display: grid;
+  gap: 28px;
+}
+
+.v2-contador,
+.v2-mom-indice {
+  display: none;
+}
+
+.v2-mom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.8fr);
+  gap: 36px;
+  align-items: center;
+  padding: 32px;
+  border-radius: 28px;
+  background: #fff;
+}
+
+.v2-mom h3 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 4.6vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1;
+  color: #197885;
+}
+
+.v2-mom p {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.5;
+}
+
+.v2-mom img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  justify-self: center;
+  border-radius: 24px;
+}
+
+.v2-anim .v2-momentos {
+  height: 300vh;
+  padding: 0;
+}
+
+.v2-anim .v2-momentos-stage {
+  position: sticky;
+  top: 64px;
+  height: calc(100svh - 64px);
+  display: block;
+}
+
+.v2-anim .v2-contador {
+  display: block;
+  position: absolute;
+  top: 6vh;
+  left: 24px;
+  margin: 0;
+  font-weight: 700;
+  color: var(--c-muted);
+}
+
+.v2-anim .v2-contador b {
+  color: #197885;
+}
+
+.v2-anim .v2-mom {
+  position: absolute;
+  inset: 13vh 24px 16vh;
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+
+.v2-anim .v2-mom.activo {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.v2-anim .v2-mom-indice {
+  display: flex;
+  gap: 22px;
+  position: absolute;
+  left: 24px;
+  bottom: 5vh;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 700;
+  color: var(--c-muted);
+}
+
+.v2-mom-indice li {
+  transition: color 0.3s;
+}
+
+.v2-mom-indice li span {
+  color: inherit;
+  opacity: 0.6;
+}
+
+.v2-mom-indice li.activo {
+  color: #197885;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+/* ---------- 7. Recorrido: tarjetas apiladas ---------- */
+.v2-recorrido {
+  padding: 16vh 0 8vh;
+}
+
+.v2-avance {
+  max-width: 420px;
+  margin: 18px 0 40px;
+}
+
+.v2-avance-barra {
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(25, 120, 133, 0.15);
+  overflow: hidden;
+}
+
+.v2-avance-barra span {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #197885, #8a6fb0);
+}
+
+.v2-avance p {
+  margin: 8px 0 0;
+  font-weight: 600;
+  color: var(--c-muted);
+}
+
+.v2-cartas {
+  margin: 0;
+  padding: 0 0 10vh;
+  list-style: none;
+}
+
+.v2-carta {
+  position: sticky;
+  top: calc(64px + 20px + var(--i) * 14px);
+  margin-bottom: 8vh;
+}
+
+.v2-carta-in {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 32px;
+  align-items: center;
+  min-height: min(520px, 68svh);
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: 30px;
+  background: linear-gradient(135deg, var(--m), color-mix(in srgb, var(--m) 72%, #0c1e2a));
+  color: #fff;
+  box-shadow: 0 30px 60px -30px rgba(12, 30, 42, 0.55);
+  transform-origin: 50% 0;
+  position: relative;
+}
+
+/* Sombra que cae sobre la tarjeta cuando la siguiente la cubre (la controla MotionV2). */
+.v2-carta-in::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #0c1e2a;
+  opacity: var(--tapada, 0);
+  pointer-events: none;
+}
+
+.v2-carta-num {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  opacity: 0.85;
+}
+
+.v2-hecho {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #fff;
+  color: #2e8b50;
+  font-size: 0.85rem;
+}
+
+.v2 .v2-carta h3 {
+  margin: 6px 0 14px;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+
+.v2-carta-cont {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.v2-carta-prop {
+  margin: 0 0 24px;
+  max-width: 46ch;
+  line-height: 1.55;
+  opacity: 0.92;
+}
+
+.v2-carta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--m, #197885);
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.v2-carta-btn:hover {
+  transform: translateX(4px);
+}
+
+.v2-carta-btn:focus-visible {
+  outline: 3px solid #f2b705;
+  outline-offset: 3px;
+}
+
+.v2-carta img {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1;
+  justify-self: center;
+  padding: 10%;
+  border-radius: 26px;
+  background: #fff;
+  object-fit: contain;
+}
+
+/* ---------- 8. Recuerda que… ---------- */
+.v2-recuerda {
+  padding: 14vh 0 10vh;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.v2-gigante {
+  margin: 10vh 0 4vh;
+  font-size: clamp(3rem, 11vw, 8.4rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.v2-relleno {
+  --lleno: 100%;
+  background: linear-gradient(90deg, #7d55a0 var(--lleno), rgba(125, 85, 160, 0.18) var(--lleno));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.v2-anim .v2-relleno {
+  --lleno: 0%;
+}
+
+.v2-recuerda .v2-frase-llena {
+  margin-top: 0;
+  color: #5c3f86;
+}
+
+.v2-final {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8vh;
+}
+
+.v2-final .v2-carta-btn {
+  background: #197885;
+  color: #fff;
+}
+
+/* ---------- celular ---------- */
+@media (max-width: 760px) {
+  .v2-wrap {
+    padding: 0 18px;
+  }
+  .v2-dos,
+  .v2-como-intro {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .v2-lema {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .v2-portada-txt {
+    padding: 32px 20px;
+  }
+  .v2-tesela {
+    border-radius: 16px;
+  }
+  .v2-mom {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 24px;
+  }
+  .v2-mom img {
+    max-width: 180px;
+    order: -1;
+  }
+  .v2-anim .v2-mom {
+    inset: 10vh 18px 14vh;
+    align-content: center;
+  }
+  .v2-anim .v2-mom-indice {
+    left: 18px;
+    gap: 14px;
+    font-size: 0.85rem;
+  }
+  .v2-anim .v2-contador {
+    left: 18px;
+    top: 3vh;
+  }
+  .v2-carta-in {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    min-height: 0;
+  }
+  .v2-carta img {
+    max-width: 120px;
+    order: -1;
+    justify-self: start;
+  }
+  .v2-carta-prop {
+    display: none;
+  }
+  .v2-anim .v2-libelula {
+    width: 54px;
+  }
+}
+
+@media print {
+  .v2-collage,
+  .v2-vuelo,
+  .v2-libelula,
+  .v2-baja {
+    display: none !important;
+  }
+}

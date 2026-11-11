@@ -1,0 +1,438 @@
+/* Recorrido guiado: resalte, tarjeta de SurOcsito e invitación. */
+
+.g-bloqueo {
+  position: fixed;
+  inset: 0;
+  z-index: 79;
+}
+
+.g-foco {
+  position: fixed;
+  z-index: 80;
+  border-radius: 22px;
+  box-shadow: 0 0 0 200vmax rgba(11, 10, 40, 0.72);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease, left 0.6s cubic-bezier(0.16, 1, 0.3, 1), top 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    width 0.6s cubic-bezier(0.16, 1, 0.3, 1), height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.g-foco.on {
+  opacity: 1;
+}
+
+.g-foco::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 28px;
+  border: 2px solid #fbec4a;
+  animation: g-pulso 2s ease-in-out infinite;
+}
+
+@keyframes g-pulso {
+  50% {
+    inset: -12px;
+    opacity: 0.3;
+  }
+}
+
+.g-tarjeta {
+  position: fixed;
+  z-index: 85;
+  width: min(380px, calc(100vw - 32px));
+  padding: 20px 20px 16px;
+  border-radius: 24px;
+  background: #fff;
+  color: #1c1c3a;
+  font-family: var(--font-raleway), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateY(10px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.g-tarjeta.on {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.g-flecha {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+
+.g-cab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.g-av {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e6f2fa;
+}
+
+.g-av img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.g-num {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #1ba19a;
+}
+
+.g-tarjeta h3 {
+  margin: 2px 0 0;
+  font-family: var(--font-raleway), system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #1c1c3a;
+}
+
+.g-tarjeta p {
+  margin: 12px 0 0;
+  color: #3d4160;
+}
+
+.g-tarea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #fff8d2;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.g-tarea i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #1c1c3a;
+  font-style: normal;
+  font-size: 0.7rem;
+  color: transparent;
+}
+
+.g-tarea.ok {
+  background: #e3f6ee;
+}
+
+.g-tarea.ok i {
+  background: #1ba19a;
+  border-color: #1ba19a;
+  color: #fff;
+}
+
+.g-pie {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.g-puntos {
+  display: flex;
+  gap: 5px;
+  margin-right: auto;
+}
+
+.g-puntos span {
+  width: 7px;
+  height: 7px;
+  border-radius: 4px;
+  background: #dbe3ef;
+  transition: all 0.4s;
+}
+
+.g-puntos span.on {
+  width: 20px;
+  background: #1c1c3a;
+}
+
+.g-saltar {
+  padding: 8px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #6b7196;
+  cursor: pointer;
+}
+
+.g-atras,
+.g-sig {
+  height: 44px;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.g-atras {
+  width: 44px;
+  border: 1px solid #dbe3ef;
+  background: #fff;
+  color: #1c1c3a;
+}
+
+.g-sig {
+  padding: 0 18px;
+  border: 0;
+  background: #1c1c3a;
+  color: #fff;
+}
+
+.g-sig:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Invitación y cierre */
+.g-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(11, 10, 40, 0.6);
+  animation: g-aparece 0.3s ease;
+}
+
+@keyframes g-aparece {
+  from {
+    opacity: 0;
+  }
+}
+
+.g-modal-card {
+  max-width: 420px;
+  padding: 28px 28px 24px;
+  border-radius: 26px;
+  background: #fff;
+  color: #1c1c3a;
+  font-family: var(--font-raleway), system-ui, sans-serif;
+  text-align: center;
+  animation: g-sube 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes g-sube {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+}
+
+.g-modal-card img {
+  width: 180px;
+  height: auto;
+}
+
+.g-modal-card h2 {
+  margin: 8px 0 0;
+  font-family: var(--font-raleway), system-ui, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #1c1c3a;
+}
+
+.g-modal-card p {
+  margin: 10px 0 0;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: #3d4160;
+}
+
+.g-modal-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.g-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: #1c1c3a;
+  color: #fff;
+  font: inherit;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.g-btn.ghost {
+  border: 1.5px solid #dbe3ef;
+  background: #fff;
+  color: #1c1c3a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .g-foco,
+  .g-tarjeta {
+    transition: none;
+  }
+  .g-foco::after,
+  .g-modal,
+  .g-modal-card {
+    animation: none;
+  }
+}
+
+/* SurOcsito señala el botón de ayuda cuando la persona prefiere explorar sola */
+.g-senal {
+  position: fixed;
+  z-index: 60;
+  pointer-events: none;
+  animation: g-senal-sale 0.5s ease 4.7s forwards;
+}
+
+.g-senal-flecha {
+  position: absolute;
+  top: 0;
+  left: -15px;
+  color: #f2b705;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+  opacity: 0;
+  animation:
+    g-aparece 0.2s ease 0.9s forwards,
+    g-rebota 0.7s ease-in-out 0.9s 3;
+}
+
+.g-senal-caja {
+  position: absolute;
+  top: 38px;
+  right: -40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  max-width: min(290px, calc(100vw - 32px));
+  padding: 10px 14px 10px 10px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(20, 50, 60, 0.22);
+  font-family: var(--font-raleway), system-ui, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: #173f4a;
+  transform-origin: top right;
+  animation: g-vuela 0.9s cubic-bezier(0.22, 1.2, 0.36, 1) both;
+}
+
+.g-senal-caja img {
+  flex-shrink: 0;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  animation: g-saluda 0.7s ease-in-out 0.9s 3;
+}
+
+.g-senal-caja p {
+  margin: 0;
+}
+
+.g-senal-caja b {
+  color: #197885;
+}
+
+/* El botón late tres veces mientras SurOcsito lo señala. */
+.g-senalado {
+  animation: g-late 0.7s ease-in-out 0.9s 3;
+}
+
+@keyframes g-vuela {
+  from {
+    opacity: 0;
+    transform: translate(-30vw, 55vh) scale(0.3) rotate(-12deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes g-aparece {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes g-rebota {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes g-saluda {
+  50% {
+    transform: rotate(-10deg) translateY(-3px);
+  }
+}
+
+@keyframes g-late {
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 8px rgba(242, 183, 5, 0.45);
+  }
+}
+
+@keyframes g-senal-sale {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .g-senal-caja,
+  .g-senal-caja img,
+  .g-senalado {
+    animation: none;
+  }
+  .g-senal-flecha {
+    opacity: 1;
+    animation: none;
+  }
+  .g-senalado {
+    box-shadow: 0 0 0 4px rgba(242, 183, 5, 0.6);
+  }
+}
