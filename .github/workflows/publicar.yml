@@ -1,5 +1,4 @@
-# Publica la Experiencia Libélula en GitHub Pages cada vez que se sube la rama «master»
-# (o a mano desde la pestaña Actions).
+# Publica la carpeta «sitio» en GitHub Pages cada vez que se sube la rama «master».
 name: Publicar en GitHub Pages
 
 on:
@@ -17,38 +16,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  compilar:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      # GitHub Pages publica en «usuario.github.io/<repositorio>/»; un repositorio
-      # «usuario.github.io» o un dominio propio (variable EN_LA_RAIZ=1) va en la raíz.
-      - name: Ruta base
-        run: |
-          if [[ "${{ github.event.repository.name }}" == *.github.io || "${{ vars.EN_LA_RAIZ }}" == "1" ]]; then
-            echo "NEXT_PUBLIC_BASE_PATH=" >> "$GITHUB_ENV"
-          else
-            echo "NEXT_PUBLIC_BASE_PATH=/${{ github.event.repository.name }}" >> "$GITHUB_ENV"
-          fi
-      - run: npm run build
-        env:
-          NEXT_PUBLIC_NO_INDEXAR: ${{ vars.NO_INDEXAR }}
-      - run: touch out/.nojekyll
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
-
   publicar:
-    needs: compilar
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.despliegue.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: sitio
       - id: despliegue
         uses: actions/deploy-pages@v4
